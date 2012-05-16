@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Synapse_Synform_Field_Submit extends Synapse_Synform_Element {
+class Synapse_Synform_Field_Submit extends Synform_Element {
 
 	protected $_view = 'button/submit';
 
@@ -11,4 +11,8 @@ class Synapse_Synform_Field_Submit extends Synapse_Synform_Element {
 		$this->set_attribute('type', 'submit');
 	}
 
+	public function input()
+	{
+		return Form::submit($this->_attributes['name'], $this->_label, $this->_attributes);
+	}
 }

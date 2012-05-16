@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Synapse_Synform_Field_Checkbox extends Synapse_Synform_Element {
+class Synapse_Synform_Field_Checkbox extends Synform_Element {
 
 	protected $_view = 'input/checkbox';
 
@@ -25,6 +25,11 @@ class Synapse_Synform_Field_Checkbox extends Synapse_Synform_Element {
 		}
 
 		return $this;
+	}
+
+	public function input()
+	{
+		return Form::checkbox($this->_attributes['name'], $this->_options, $this->value(), $this->_attributes);
 	}
 
 }

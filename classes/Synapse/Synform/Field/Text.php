@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Synapse_Synform_Field_Text extends Synapse_Synform_Element {
+class Synapse_Synform_Field_Text extends Synform_Element {
 
 	protected $_view = 'input/text';
 
@@ -11,4 +11,8 @@ class Synapse_Synform_Field_Text extends Synapse_Synform_Element {
 		$this->set_attribute('type', 'text');
 	}
 
+	public function input()
+	{
+		return Form::input($this->_attributes['name'], $this->value(), $this->_attributes);
+	}
 }

@@ -31,9 +31,7 @@ abstract class Synapse_Synform_Element {
 	 *
 	 * @var array
 	 */
-	protected $_attributes = array(
-		'class' => array(),
-	);
+	protected $_attributes = array();
 
 	/**
 	 * An array of messages organized into groups
@@ -285,7 +283,7 @@ abstract class Synapse_Synform_Element {
 		return $this;
 	}
 
-	public function label()
+	public function get_label()
 	{
 		if ( ! $this->_has_label)
 			return FALSE;
@@ -317,7 +315,17 @@ abstract class Synapse_Synform_Element {
 
 	public function __toString()
 	{
-		return '';
+		try
+		{
+			return $this->render();
+		}
+		catch (Exception $e)
+		{
+			// Display the exception message
+			Kohana_Exception::handler($e);
+
+			return '';
+		}
 	}
 
 	/**
@@ -325,7 +333,60 @@ abstract class Synapse_Synform_Element {
 	 *
 	 * @return string
 	 */
-	public function render() {}
+	public function render()
+	{
+		return '';
+	}
+
+	public function input()
+	{
+		$method  = new ReflectionMethod('Form', $this->_attributes['type']);
+		$element =  $method->invokeArgs(null, array($this->_attributes['name'], $this->value(), $this->_attributes));
+
+		return $element;
+	}
+
+	public function label()
+	{
+		$label = $this->_label;
+
+		if ($required = Arr::get($this->_attributes, 'required'))
+		{
+			$label = $label.($required === TRUE ? '*' : $required);
+		}
+
+		return Form::label($this->_attributes['name'], $label);
+	}
+
+	public function container()
+	{
+		$attributes = array(
+			'class' => 'form-item control-group '.$this->_attributes['type'],
+			'id'    => $this->_name.'-'.'container',
+		);
+
+		if (Arr::get($this->_messages, 'errors'))
+		{
+			$attributes['class'] = $attributes['class'].' error';
+		}
+
+		if (Arr::get($this->_attributes, 'required'))
+		{
+			$attributes['class'] = $attributes['class'].' required';
+		}
+
+		return HTML::attributes($attributes);
+	}
+
+	public function value()
+	{
+		return ($this->_settings->get_value($this->_path) ?: NULL);
+	}
+
+	public function errors()
+	{
+		return Arr::get($this->_messages, 'errors', NULL);
+	}
 
 	/**
 	 * Returns the full path to the View file

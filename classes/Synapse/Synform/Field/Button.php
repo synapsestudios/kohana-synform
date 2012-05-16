@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Synapse_Synform_Field_Button extends Synapse_Synform_Element {
+class Synapse_Synform_Field_Button extends Synform_Element {
 
 	protected $_view = 'button/button';
 

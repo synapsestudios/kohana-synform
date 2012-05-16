@@ -201,11 +201,7 @@ class Synapse_Synform {
 	 */
 	public function open($action = NULL, array $attributes = array())
 	{
-		// Create the form element before rendering it
-		$this->_form = $this->form($this->_name);
-
-
-		return $this->_form->open($action, $attributes);
+		return Form::open($action, $attributes);
 	}
 
 	/**
@@ -228,7 +224,7 @@ class Synapse_Synform {
 	 */
 	public function close()
 	{
-		return $this->_form->close();
+		return Form::close();
 	}
 
 }

@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Synapse_Synform_Field_Radio extends Synapse_Synform_Element {
+class Synapse_Synform_Field_Radio extends Synform_Element {
 
 	protected $_view = 'input/radio';
 
@@ -32,6 +32,11 @@ class Synapse_Synform_Field_Radio extends Synapse_Synform_Element {
 		}
 
 		return $this;
+	}
+
+	public function input()
+	{
+		return Form::radio($this->_attributes['name'], $this->_options, $this->value(), $this->_attributes);
 	}
 
 }
