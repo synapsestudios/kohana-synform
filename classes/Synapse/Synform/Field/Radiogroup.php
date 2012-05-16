@@ -1,10 +1,10 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Synapse_Synform_Field_RadioGroup extends YForm_Field_Group {
+class Synapse_Synform_Field_Radiogroup extends Synapse_Synform_Field_Group {
 
 	protected $_has_label = TRUE;
 
-	protected $_view = 'choice/radioGroup';
+	protected $_view = 'choice/radiogroup';
 
 	protected $_options = array();
 
@@ -47,7 +47,7 @@ class Synapse_Synform_Field_RadioGroup extends YForm_Field_Group {
 			? $this->_settings->__call($method, $args)
 				->set_value($this->_settings->get_value($this->_path))
 			// We are creating elements without a form object
-			: YForm::create_element($method, $args);
+			: Synform::create_element($method, $args);
 	}
 
 	public function options()

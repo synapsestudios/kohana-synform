@@ -100,7 +100,7 @@ abstract class Synapse_Synform_Element {
 	public function extract_messages(Synform $settings)
 	{
 		// Using the dot-notated path to grab messages
-		$this->_messages = Arr::merge($this->_messages, $settings->get_messages($this->_path, array()));
+		$this->_messages = Arr::merge($this->_messages, $settings->messages($this->_path, array()));
 	}
 
 	/**
@@ -145,7 +145,7 @@ abstract class Synapse_Synform_Element {
 	 *
 	 * @return  array
 	 */
-	public function get_attributes()
+	public function attributes()
 	{
 		$attributes = $this->_attributes;
 
@@ -263,7 +263,7 @@ abstract class Synapse_Synform_Element {
 	 * @param mixed $default
 	 * @return array
 	 */
-	public function get_messages()
+	public function messages()
 	{
 		return $this->_messages;
 	}
@@ -280,7 +280,7 @@ abstract class Synapse_Synform_Element {
 		return $this;
 	}
 
-	public function get_label()
+	public function label()
 	{
 		if ( ! $this->_has_label)
 			return FALSE;

@@ -1,10 +1,10 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
 
-class Synapse_Synform_Field_CheckboxGroup extends Synapse_Synform_Field_Group {
+class Synapse_Synform_Field_Checkboxgroup extends Synapse_Synform_Field_Group {
 
 	protected $_has_label = TRUE;
 
-	protected $_view = 'choice/checkboxGroup';
+	protected $_view = 'choice/checkboxgroup';
 
 	protected $_options = array();
 

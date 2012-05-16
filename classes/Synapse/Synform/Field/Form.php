@@ -11,7 +11,6 @@ class Synapse_Synform_Field_Form extends Synapse_Synform_Element {
 		parent::__construct($name);
 	}
 
-
 	/**
 	 * Renders the view for opening a form
 	 *
@@ -48,9 +47,9 @@ class Synapse_Synform_Field_Form extends Synapse_Synform_Element {
 			$attributes['method'] = 'post';
 		}
 
-		$attributes += $this->get_attributes();
+		$attributes += $this->attributes();
 
-		return View::factory($this->view())
+		return Kostache::factory($this->view())
 			->set('object', $this)
 			->set('attributes', $attributes)
 			->set('open', TRUE)
@@ -72,7 +71,7 @@ class Synapse_Synform_Field_Form extends Synapse_Synform_Element {
 	 */
 	public function close()
 	{
-		return View::factory($this->view())
+		return Kostache::factory($this->view())
 			->set('object', $this)
 			->set('open', FALSE)
 			->render();
