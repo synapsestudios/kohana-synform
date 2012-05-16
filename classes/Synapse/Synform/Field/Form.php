@@ -47,7 +47,7 @@ class Synapse_Synform_Field_Form extends Synapse_Synform_Element {
 			$attributes['method'] = 'post';
 		}
 
-		$attributes += $this->attributes();
+		$attributes += $this->get_attributes();
 
 		return Kostache::factory($this->view())
 			->set('object', $this)

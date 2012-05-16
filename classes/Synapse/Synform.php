@@ -57,7 +57,7 @@ class Synapse_Synform {
 
 	public function __construct($name = NULL, $group = 'default')
 	{
-		$config = Kohana::config('synform.'.$group);
+		$config = Kohana::$config->load('synform.'.$group);
 		$this->_settings = array_merge($this->_settings, $config);
 
 		// Store the name for when we create the form element in open()
@@ -189,6 +189,11 @@ class Synapse_Synform {
 		return $this->_settings[$key];
 	}
 
+	public function name()
+	{
+		return $this->_name;
+	}
+
 	/**
 	 * Renders the view for opening a form
 	 *
@@ -198,6 +203,8 @@ class Synapse_Synform {
 	{
 		// Create the form element before rendering it
 		$this->_form = $this->form($this->_name);
+
+
 		return $this->_form->open($action, $attributes);
 	}
 

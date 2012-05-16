@@ -145,7 +145,7 @@ abstract class Synapse_Synform_Element {
 	 *
 	 * @return  array
 	 */
-	public function attributes()
+	public function get_attributes()
 	{
 		$attributes = $this->_attributes;
 
@@ -165,6 +165,11 @@ abstract class Synapse_Synform_Element {
 	public function get_attribute($key, $default = FALSE)
 	{
 		return Arr::get($this->_attributes, $key, $default);
+	}
+
+	public function attributes()
+	{
+		return HTML::attributes($this->get_attributes());
 	}
 
 	/**
@@ -312,17 +317,7 @@ abstract class Synapse_Synform_Element {
 
 	public function __toString()
 	{
-		try
-		{
-			return $this->render();
-		}
-		catch (Exception $e)
-		{
-			// Display the exception message
-			Kohana_Exception::handler($e);
-
-			return '';
-		}
+		return '';
 	}
 
 	/**
@@ -339,7 +334,7 @@ abstract class Synapse_Synform_Element {
 	 */
 	public function view()
 	{
-		return 'synform/themes/'.$this->_theme.'/'.$this->_view;
+		return 'synform/'.$this->_view;
 	}
 
 }
