@@ -109,7 +109,12 @@ abstract class Synapse_Synform_Element {
 	 */
 	public function add_class($class)
 	{
-		$this->_attributes['class'] += (array)$class;
+		if ( ! array_key_exists('class', $this->_attributes))
+		{
+			$this->_attributes['class'] = array();
+		}
+
+		$this->_attributes['class'] += (array) $class;
 
 		return $this;
 	}
