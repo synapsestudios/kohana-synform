@@ -47,7 +47,7 @@ class Synapse_Synform_Field_Select extends Synform_Element {
 
 	public function input()
 	{
-		return Form::select($this->_attributes['name'], $this->_options, $this->_attributes['value'], $this->_attributes);
+		return Form::select($this->_attributes['name'], $this->_options, Arr::get($this->_attributes, 'value'), $this->_attributes);
 	}
 
 }
