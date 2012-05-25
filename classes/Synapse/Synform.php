@@ -47,6 +47,8 @@ class Synapse_Synform {
 	 */
 	protected $_values = array();
 
+	protected $_elements = array();
+
 	/**
 	 * The main Form element for this form
 	 *
@@ -77,6 +79,8 @@ class Synapse_Synform {
 
 		// Load settings from this form object
 		$instance->load_settings($this);
+
+		$this->_elements[] = $instance;
 
 		return $instance;
 	}
@@ -201,7 +205,11 @@ class Synapse_Synform {
 	 */
 	public function open($action = NULL, array $attributes = array())
 	{
-		return Form::open($action, $attributes);
+		$open = Form::open($action, $attributes);
+
+		$this->_elements['open'] = $open;
+
+		return $open;
 	}
 
 	/**
@@ -224,7 +232,32 @@ class Synapse_Synform {
 	 */
 	public function close()
 	{
-		return Form::close();
+		$close = Form::close();
+
+		$this->_elements['close'] = $close;
+
+		return $close;
+	}
+
+	public function as_array()
+	{
+		$elements = $this->_elements;
+
+		$data = array(
+			'open'  => $elements['open'],
+			'close' => $elements['close'],
+		);
+
+		unset($elements['open'], $elements['close']);
+
+		foreach ($elements as $element)
+		{
+			$attributes = $element->get_attributes();
+
+			$data[$attributes['name']] = $element->as_array();
+		}
+
+		return $data;
 	}
 
 }

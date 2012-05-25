@@ -403,4 +403,15 @@ abstract class Synapse_Synform_Element {
 		return 'synform/'.$this->_view;
 	}
 
+	public function as_array()
+	{
+		// Store only information about the object
+		foreach (array('errors', 'container', 'value', 'label', 'input', 'get_attributes') as $var)
+		{
+			$data[$var] = $this->{$var}();
+		}
+
+		return $data;
+	}
+
 }
