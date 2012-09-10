@@ -4,6 +4,8 @@ class Synapse_Synform_Field_Checkbox extends Synform_Element {
 
 	protected $_view = 'input/checkbox';
 
+	protected $_options = 1;
+
 	public function __construct($name)
 	{
 		parent::__construct($name);
