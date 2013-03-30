@@ -2,8 +2,6 @@
 
 class Synapse_Synform_Field_Radio extends Synform_Element {
 
-	protected $_view = 'input/radio';
-
 	public function __construct($name, $value)
 	{
 		parent::__construct($name);
@@ -36,7 +34,7 @@ class Synapse_Synform_Field_Radio extends Synform_Element {
 
 	public function input()
 	{
-		return Form::radio($this->_attributes['name'], $this->_options, $this->value(), $this->_attributes);
+		return Form::radio($this->_attributes['name'], $this->_options, $this->value(), $this->clean_attributes());
 	}
 
 }

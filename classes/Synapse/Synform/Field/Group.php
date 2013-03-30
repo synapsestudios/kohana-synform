@@ -9,11 +9,9 @@ class Synapse_Synform_Field_Group extends Synform_Element {
 
 	protected $_has_label = FALSE;
 
-	protected $_view  = 'group';
-
 	/**
 	 * Returns an instance of an element
-	 * Uses the YForm instance set in the settings
+	 * Uses the Synform instance set in the settings
 	 * Will prepend the name of this group
 	 * ex: user[username] when this group is called `user` and the field is called `username`
 	 *
@@ -44,7 +42,7 @@ class Synapse_Synform_Field_Group extends Synform_Element {
 			// Use the above settings object to create our element
 			? $this->_settings->__call($method, $args)
 			// We are creating elements without a form object
-			: YForm::create_element($method, $args);
+			: Synform::create_element($method, $args);
 	}
 
 	/**
