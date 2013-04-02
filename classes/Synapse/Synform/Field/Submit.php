@@ -13,6 +13,6 @@ class Synapse_Synform_Field_Submit extends Synform_Element {
 
 	public function input()
 	{
-		return Form::button($this->_attributes['name'], $this->_label, $this->clean_attributes());
+		return Form::button($this->_attributes['name'], $this->get_label(), $this->clean_attributes());
 	}
 }
