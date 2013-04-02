@@ -157,6 +157,15 @@ class Synapse_Synform {
 	}
 
 	/**
+	 * Returns the form values
+	 * @return array
+	 */
+	public function values()
+	{
+		return $this->_values;
+	}
+
+	/**
 	 * Sets a value into the _settings array
 	 *
 	 * @param string $key

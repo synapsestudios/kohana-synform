@@ -4,13 +4,6 @@ class Synapse_Synform_Field_Form extends Synform_Element {
 
 	protected $_has_label = FALSE;
 
-	protected $_view  = 'form';
-
-	public function __construct($name)
-	{
-		parent::__construct($name);
-	}
-
 	/**
 	 * Renders the view for opening a form
 	 *

@@ -2,7 +2,7 @@
 
 class Synapse_Synform_Field_Radio extends Synform_Element {
 
-	protected $_view = 'input/radio';
+	protected $_options;
 
 	public function __construct($name, $value)
 	{
@@ -36,7 +36,19 @@ class Synapse_Synform_Field_Radio extends Synform_Element {
 
 	public function input()
 	{
-		return Form::radio($this->_attributes['name'], $this->_options, $this->value(), $this->_attributes);
+		return Form::radio($this->_attributes['name'], $this->_attributes['value'], NULL, $this->clean_attributes());
+	}
+
+	public function label()
+	{
+		$label = $this->get_label();
+
+		if ($required = Arr::get($this->_object, 'required'))
+		{
+			$label = $label.($required === TRUE ? '<span class="required">*</span>' : $required);
+		}
+
+		return Form::label($this->clean_name().'_'.$this->get_attribute('value'), $label);
 	}
 
 }

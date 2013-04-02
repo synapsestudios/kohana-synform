@@ -6,7 +6,7 @@ abstract class Synapse_Synform_Element {
 	 * The config options for this element.
 	 */
 	protected $_theme = 'default';
-	protected $_view  = 'element';
+	protected $_view  = 'Element';
 
 	/**
 	 * Label text for this element (not the i18n string)
@@ -92,7 +92,7 @@ abstract class Synapse_Synform_Element {
 	/**
 	 * Takes any related messages out of a Synform object and adds them to the element
 	 *
-	   @param object $settings
+	 * @param object $settings
 	 * @return  self
 	 */
 	public function extract_messages(Synform $settings)
@@ -340,39 +340,48 @@ abstract class Synapse_Synform_Element {
 	 */
 	public function render()
 	{
-		return '';
+		return Kostache::factory($this->view())
+			->set('container', $this->container())
+			->set('errors', $this->errors())
+			->set('help', $this->help())
+			->set('input', $this->input())
+			->set('label', $this->label())
+			->set('value', $this->value())
+			->render();
 	}
 
 	public function input()
 	{
 		$method  = new ReflectionMethod('Form', $this->_attributes['type']);
-		$element =  $method->invokeArgs(null, array($this->_attributes['name'], $this->value(), $this->_attributes));
+
+		$element =  $method->invokeArgs(null, array($this->_attributes['name'], $this->value(), $this->clean_attributes()));
 
 		return $element;
 	}
 
 	public function label()
 	{
-		$label = $this->_label;
+		$label = $this->get_label();
 
-		if ($required = Arr::get($this->_attributes, 'required'))
+		if ($required = Arr::get($this->_object, 'required'))
 		{
-			$label = $label.($required === TRUE ? '*' : $required);
+			$label = $label.($required === TRUE ? '<span class="required">*</span>' : $required);
 		}
 
-		return Form::label($this->_attributes['name'], $label);
+		return Form::label($this->clean_name(), $label);
 	}
 
 	public function container()
 	{
+
 		$attributes = array(
-			'class' => 'form-item control-group '.$this->_attributes['type'],
-			'id'    => $this->_name.'-'.'container',
+			'class' => 'synform-item synform-'.$this->_attributes['type'],
+			'id'    => $this->clean_name().'-'.'container',
 		);
 
 		if (Arr::get($this->_messages, 'errors'))
 		{
-			$attributes['class'] = $attributes['class'].' error';
+			$attributes['class'] = $attributes['class'].' has-errors';
 		}
 
 		if (Arr::get($this->_attributes, 'required'))
@@ -393,6 +402,11 @@ abstract class Synapse_Synform_Element {
 		return Arr::get($this->_messages, 'errors', NULL);
 	}
 
+	public function help()
+	{
+		return Arr::get($this->_messages, 'help', NULL);
+	}
+
 	/**
 	 * Returns the full path to the View file
 	 *
@@ -400,7 +414,7 @@ abstract class Synapse_Synform_Element {
 	 */
 	public function view()
 	{
-		return 'synform/'.$this->_view;
+		return 'Synform/'.$this->_view;
 	}
 
 	public function as_array()
@@ -414,4 +428,32 @@ abstract class Synapse_Synform_Element {
 		return $data;
 	}
 
+	public function clean_attributes()
+	{
+		foreach ($this->_attributes as $key => $attribute)
+		{
+			$string = '';
+
+			if (is_array($attribute))
+			{
+				foreach ($attribute as $attr)
+				{
+					$string = ' '.$attr;
+				}
+			}
+			else
+			{
+				$string = $attribute;
+			}
+
+			$attributes[$key] = $string;
+		}
+
+		return $attributes;
+	}
+
+	public function clean_name()
+	{
+		return str_replace(']', '', str_replace('[', '-', $this->_name));
+	}
 }
