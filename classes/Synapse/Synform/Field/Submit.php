@@ -2,7 +2,7 @@
 
 class Synapse_Synform_Field_Submit extends Synform_Element {
 
-	protected $_view = 'button/submit';
+	protected $_view = 'Button';
 
 	public function __construct($name)
 	{
@@ -13,6 +13,6 @@ class Synapse_Synform_Field_Submit extends Synform_Element {
 
 	public function input()
 	{
-		return Form::submit($this->_attributes['name'], $this->_label, $this->_attributes);
+		return Form::button($this->_attributes['name'], $this->get_label(), $this->clean_attributes());
 	}
 }

@@ -2,8 +2,6 @@
 
 class Synapse_Synform_Field_Textarea extends Synform_Element {
 
-	protected $_view = 'input/textarea';
-
 	public function __construct($name)
 	{
 		parent::__construct($name);

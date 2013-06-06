@@ -4,8 +4,6 @@ class Synapse_Synform_Field_Select extends Synform_Element {
 
 	protected $_has_label = TRUE;
 
-	protected $_view = 'choice/select';
-
 	protected $_options = array();
 	protected $_option_attributes = array();
 
@@ -47,7 +45,7 @@ class Synapse_Synform_Field_Select extends Synform_Element {
 
 	public function input()
 	{
-		return Form::select($this->_attributes['name'], $this->_options, Arr::get($this->_attributes, 'value'), $this->_attributes);
+		return Form::select($this->_attributes['name'], $this->_options, Arr::get($this->_attributes, 'value'), $this->clean_attributes());
 	}
 
 }

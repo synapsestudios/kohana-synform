@@ -2,8 +2,6 @@
 
 class Synapse_Synform_Field_File extends Synform_Element {
 
-	protected $_view = 'input/upload';
-
 	public function __construct($name)
 	{
 		parent::__construct($name);
@@ -13,7 +11,7 @@ class Synapse_Synform_Field_File extends Synform_Element {
 
 	public function input()
 	{
-		return Form::file($this->_attributes['name'], $this->_attributes);
+		return Form::file($this->_attributes['name'], $this->clean_attributes());
 	}
 
 }

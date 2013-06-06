@@ -2,8 +2,6 @@
 
 class Synapse_Synform_Field_Text extends Synform_Element {
 
-	protected $_view = 'input/text';
-
 	public function __construct($name)
 	{
 		parent::__construct($name);
@@ -13,6 +11,6 @@ class Synapse_Synform_Field_Text extends Synform_Element {
 
 	public function input()
 	{
-		return Form::input($this->_attributes['name'], $this->value(), $this->_attributes);
+		return Form::input($this->_attributes['name'], $this->value(), $this->clean_attributes());
 	}
 }

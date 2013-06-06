@@ -2,7 +2,7 @@
 
 class Synapse_Synform_Field_Button extends Synform_Element {
 
-	protected $_view = 'button/button';
+	protected $_view = 'Button';
 
 	public function __construct($name)
 	{
